@@ -1,0 +1,149 @@
+
+=== BASELINE ===
+branch= qgrim-packaging
+head= 321598b
+status= ''
+
+=== FAILING TEST ===
+test_sample.py:83:         assert all(v == 1 for v in counts.values())
+test_sample.py:84: 
+test_sample.py:85:     def test_progress_kwarg_accepted(self):
+test_sample.py:86:         """sample_circuit accepts progress=False without error."""
+test_sample.py:87:         counts = sample_circuit(BELL_SRC, shots=10, seed=0, progress=False)
+test_sample.py:88:         assert sum(counts.values()) == 10
+
+=== SIGNATURES ===
+sample_circuit= (source: 'str', shots: 'int' = 1024, seed: 'int' = 44257, noise_p: 'float' = 0.0) -> 'Dict[str, int]'
+sample_circuit_annotations= {'source': 'str', 'shots': 'int', 'seed': 'int', 'noise_p': 'float', 'return': 'Dict[str, int]'}
+sample_circuit_location= /home/ubuntu/QGRIM_-ENGINE-.PY/QGRIM_ENGINE.py 1016
+sample_circuit_doc= Run the circuit `shots` times (independent fresh state each run).
+`shots` must be a non-negative integer; zero returns an empty dictionary.
+Returns a dict: 4-bit bitstring → count.
+
+=== EXCEPTION_MECHANISM ===
+exception_type= TypeError
+exception_message= sample_circuit() got an unexpected keyword argument 'progress'
+sample_circuit_trace_events= []
+entered_sample_circuit= False
+
+=== ACTUAL_SAMPLER_BEHAVIOR ===
+shots=0 seed=0 type=dict result={}
+shots=1 seed=0 type=dict result={'1000': 1}
+shots=10 seed=0 type=dict result={'1000': 7, '0000': 3}
+shots=10 seed=0 type=dict result={'1000': 7, '0000': 3}
+shots=10 seed=1 type=dict result={'1000': 5, '0000': 5}
+sample_source_start
+def sample_circuit(
+    source: str,
+    shots: int = 1024,
+    seed: int = 0xACE1,
+    noise_p: float = 0.0,
+) -> Dict[str, int]:
+    """
+    Run the circuit `shots` times (independent fresh state each run).
+    `shots` must be a non-negative integer; zero returns an empty dictionary.
+    Returns a dict: 4-bit bitstring → count.
+    """
+    shots = _validate_nonnegative_integer(shots, "shots")
+    program = assemble(source)
+    counts: Dict[str, int] = {}
+    rng = random.Random(seed)
+    for _ in range(shots):
+        sim = QGRIMSim(seed=rng.randint(0, 0xFFFFFFFF), noise_p=noise_p)
+        sim.run(program)
+        bits = "".join(str(sim.measurements.get(q, 0)) for q in range(QUBITS))
+        counts[bits] = counts.get(bits, 0) + 1
+    return counts
+
+sample_source_end
+
+=== RETURN_AND_RNG_CHECK ===
+seed_deterministic= True
+seed_variation= True
+
+=== REPOSITORY_PROGRESS_OCCURRENCES ===
+PROVENANCE.md:39: **Intentionally unresolved behavior** includes the sampler’s `progress=False` mismatch. One historical test expects the keyword, but the implementation, documentation, call sites, and earlier history do not establish its intended semantics. It remains unsupported until a separate API decision is made.
+README.md:72: The noise input contract is finite real `noise_p` in `[0,1]`. Invalid values raise deliberate `TypeError` or `ValueError` exceptions. The sampler’s `progress=False` behavior remains intentionally unresolved: one historical test expects that keyword, but the surviving implementation, documentation, call sites, and history do not establish what it was meant to do. It has not been added merely to make the test count green.
+README.md:85: sample_circuit(..., progress=False)
+README.md:86: TypeError: unexpected keyword argument 'progress'
+RELEASE_SURFACE.md:52: The runtime uses a four-qubit Q4.12-like fixed-point state-vector model. Small norm and operator errors are expected within the documented numerical budget. Simulator-only extensions such as `IFX`, `IFZ`, `MARK`, and `REFLECT` are not historical hardware ISA instructions and are not sent to FPGA hardware. The sampler `progress=False` behavior remains intentionally unresolved and is not part of the current public API contract.
+test_sample.py:85:     def test_progress_kwarg_accepted(self):
+test_sample.py:86:         """sample_circuit accepts progress=False without error."""
+test_sample.py:87:         counts = sample_circuit(BELL_SRC, shots=10, seed=0, progress=False)
+
+=== PROGRESS_MECHANISM_SEARCH ===
+PATTERN callback:
+(none)
+PATTERN tqdm:
+(none)
+PATTERN progress:
+./README.md:72:The noise input contract is finite real `noise_p` in `[0,1]`. Invalid values raise deliberate `TypeError` or `ValueError` exceptions. The sampler’s `progress=False` behavior remains intentionally unresolved: one historical test expects that keyword, but the surviving implementation, documentation, call sites, and history do not establish what it was meant to do. It has not been added merely to make the test count green.
+./README.md:85:sample_circuit(..., progress=False)
+./README.md:86:TypeError: unexpected keyword argument 'progress'
+./test_sample.py:85:    def test_progress_kwarg_accepted(self):
+./test_sample.py:86:        """sample_circuit accepts progress=False without error."""
+./test_sample.py:87:        counts = sample_circuit(BELL_SRC, shots=10, seed=0, progress=False)
+./PROVENANCE.md:39:**Intentionally unresolved behavior** includes the sampler’s `progress=False` mismatch. One historical test expects the keyword, but the implementation, documentation, call sites, and earlier history do not establish its intended semantics. It remains unsupported until a separate API decision is made.
+./RELEASE_SURFACE.md:52:The runtime uses a four-qubit Q4.12-like fixed-point state-vector model. Small norm and operator errors are expected within the documented numerical budget. Simulator-only extensions such as `IFX`, `IFZ`, `MARK`, and `REFLECT` are not historical hardware ISA instructions and are not sent to FPGA hardware. The sampler `progress=False` behavior remains intentionally unresolved and is not part of the current public API contract.
+
+PATTERN percent:
+(none)
+PATTERN percentage:
+(none)
+PATTERN status:
+./README.md:74:## Verification status
+
+PATTERN iteration:
+./QGRIM_ENGINE.py:791:        # Find eigenvalues of Hermitian G via power iteration + deflation
+./QGRIM_ENGINE.py:860:    power iteration plus rank-one deflation, Jacobi diagonalization retains
+./QGRIM_ENGINE.py:1260:; Engineering reconstruction: one standard Grover iteration on four qubits.
+./README.md:19:The engineering branch contains two explicitly reconstructed algorithmic contracts. The three-qubit QFT is a standard forward QFT with q0 as the least significant bit. Grover is one standard four-qubit iteration marking basis index 5 (`|0101⟩` under the same convention). These implementations were added after forensic analysis showed that the surviving historical circuits did not implement their advertised operators.
+./README.md:68:The repaired QFT matches its exact forward-QFT reference within the measured Q4.12 error budget. In the independent audit, process-style fidelity was approximately `0.99866` and a random-state forward/inverse round trip had maximum error on the order of `8e-4`. Grover’s basis-phase oracle and diffusion operator are exactly matched by the simulator-only primitives in the tested operator construction, and one iteration reaches target probability `0.47265625` for index 5.
+./test_grover.py:22:        """After 1 Grover iteration all amplitudes still exist (uniform amplification)."""
+
+PATTERN spinner:
+(none)
+PATTERN bar:
+./QGRIM_ENGINE.py:821:                bar = "█" * int(prob * 16)
+./QGRIM_ENGINE.py:825:                    f"  P={prob:.3f}  {bar:<16}  [{w_lbl}]"
+./QGRIM_ENGINE.py:841:            bar_len = int(prob * 30)
+./QGRIM_ENGINE.py:842:            bar = "▓" * bar_len + "░" * (30 - bar_len)
+./QGRIM_ENGINE.py:844:            lines.append(f"  |{i:04b}⟩  {bar}  {prob*100:5.1f}%  [{w}]")
+./QGRIM_ENGINE.py:1044:        bar_len = int(n / total * width)
+./QGRIM_ENGINE.py:1045:        bar = "█" * bar_len
+./QGRIM_ENGINE.py:1048:        lines.append(f"  |{key}⟩ [{w}]  {bar:<{width}}  {n:5d}  ({pct:5.1f}%)")
+./QGRIM_ENGINE.py:1538:│    prob           probability bar chart                      │
+./QGRIM_ENGINE.py:2092:        bar_len = int(S * 20)
+./QGRIM_ENGINE.py:2093:        bar = "█" * bar_len + "░" * (20 - bar_len)
+./QGRIM_ENGINE.py:2098:        print(f"  S(q{q} | {label_b}) = {S:.4f} bits  {bar}{note}")
+
+
+=== HISTORY ===
+$ git log --all --oneline -Sprogress --
+[33m321598b[m docs: synchronize direct-execution release surface
+[33m05b10eb[m docs: synchronize engineering provenance
+[33ma504f6c[m Create QGRIM_Engine _V2.2 ( Future )
+
+$ git log --all --oneline -Ssample_circuit -- QGRIM_ENGINE.py test_sample.py
+[33ma504f6c[m Create QGRIM_Engine _V2.2 ( Future )
+
+$ git blame -L 82,90 -- test_sample.py
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 82)         assert sum(counts.values()) == 1
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 83)         assert all(v == 1 for v in counts.values())
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 84) 
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 85)     def test_progress_kwarg_accepted(self):
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 86)         """sample_circuit accepts progress=False without error."""
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 87)         counts = sample_circuit(BELL_SRC, shots=10, seed=0, progress=False)
+^a504f6c (VAG-gomi 2026-07-25 15:58:40 +0000 88)         assert sum(counts.values()) == 10
+
+
+=== PROVENANCE_CONTEXT ===
+README.md:3: QGRIM is a **classical, four-qubit state-vector simulator** implemented in a single Python module. It tracks 16 complex amplitudes, applies Q4.12-style fixed-point quantization at the simulator’s stored-state boundaries, supports Born-rule measurement and collapse, and provides a small assembler, simulator, sampler, analysis helpers, CLI, and interactive REPL.
+README.md:72: The noise input contract is finite real `noise_p` in `[0,1]`. Invalid values raise deliberate `TypeError` or `ValueError` exceptions. The sampler’s `progress=False` behavior remains intentionally unresolved: one historical test expects that keyword, but the surviving implementation, documentation, call sites, and history do not establish what it was meant to do. It has not been added merely to make the test count green.
+README.md:82: The one failure is the preserved sampler/API ambiguity:
+README.md:85: sample_circuit(..., progress=False)
+README.md:86: TypeError: unexpected keyword argument 'progress'
+PROVENANCE.md:39: **Intentionally unresolved behavior** includes the sampler’s `progress=False` mismatch. One historical test expects the keyword, but the implementation, documentation, call sites, and earlier history do not establish its intended semantics. It remains unsupported until a separate API decision is made.
+RELEASE_SURFACE.md:52: The runtime uses a four-qubit Q4.12-like fixed-point state-vector model. Small norm and operator errors are expected within the documented numerical budget. Simulator-only extensions such as `IFX`, `IFZ`, `MARK`, and `REFLECT` are not historical hardware ISA instructions and are not sent to FPGA hardware. The sampler `progress=False` behavior remains intentionally unresolved and is not part of the current public API contract.
+
+=== END ===

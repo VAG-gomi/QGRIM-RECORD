@@ -1,0 +1,38 @@
+QGRIM_12B_NUMERICAL_BOUNDARY_AUDIT
+hadamard_repeats_1: norm=0.999786376953125 drift=-2.136e-04
+hadamard_repeats_2: norm=1.000000000000000 drift=+0.000e+00
+hadamard_repeats_4: norm=1.000000000000000 drift=+0.000e+00
+hadamard_repeats_8: norm=1.000000000000000 drift=+0.000e+00
+hadamard_repeats_16: norm=1.000000000000000 drift=+0.000e+00
+hadamard_repeats_32: norm=1.000000000000000 drift=+0.000e+00
+hadamard_repeats_64: norm=1.000000000000000 drift=+0.000e+00
+hadamard_repeats_128: norm=1.000000000000000 drift=+0.000e+00
+tiny_amplitude_0: before_nonzero=1 after_norm=0.999786376953125 state0=(0.70703125+0j) state1=(0.70703125+0j)
+tiny_amplitude_6.10351562e-05: before_nonzero=2 after_norm=0.999786376953125 state0=(0.70703125+0j) state1=(0.70703125+0j)
+tiny_amplitude_0.000122070312: before_nonzero=2 after_norm=1.000131666660309 state0=(0.707275390625+0j) state1=(0.70703125+0j)
+tiny_amplitude_0.000244140625: before_nonzero=2 after_norm=1.000131666660309 state0=(0.707275390625+0j) state1=(0.70703125+0j)
+tiny_amplitude_0.00048828125: before_nonzero=2 after_norm=1.000131905078888 state0=(0.70751953125+0j) state1=(0.706787109375+0j)
+tiny_amplitude_0.0009765625: before_nonzero=2 after_norm=0.999787449836731 state0=(0.707763671875+0j) state1=(0.706298828125+0j)
+near_zero_probabilities: min=0.000e+00 max=0.500238478183746 total=1.000131666660309 negative=False
+internal_phase_idx_0: accepted wrapped; delta=0.000000 norm=0.999786376953125
+internal_phase_idx_15: accepted wrapped; delta=0.275836 norm=0.999576151371002
+internal_phase_idx_16: accepted wrapped; delta=0.000000 norm=0.999786376953125
+internal_phase_idx_-1: accepted wrapped; delta=0.275836 norm=0.999576151371002
+internal_phase_idx_31: accepted wrapped; delta=0.275836 norm=0.999576151371002
+public_phase_idx_16: raised AsmError: field out of range: op=5 a=0 b=0 imm=16
+degenerate_2x2: eigenvalues=[0.5, 0.5] imag_max=0.000e+00
+near_degenerate_2x2: eigenvalues=[0.5, 0.5] imag_max=0.000e+00
+degenerate_4x4: eigenvalues=[1.0, 1.0, 1.0, 1.0] imag_max=0.000e+00
+entropy_zero: S=0.000000000000000
+entropy_bell: S=1.000094536942573
+entropy_near_product: S=0.000001516502797
+qft_roundtrip: max_error=0.000838677 forward_norm=0.999507156756733 recovered_norm=0.998866899593324
+grover_quantized: target=0.472656250000 expected=0.472656250000 norm=1.000000000000000
+repeated_grover_execution: max_state_difference=0.000e+00
+q_nan: raised ValueError: cannot convert float NaN to integer
+q_pos_inf: raised OverflowError: cannot convert float infinity to integer
+q_neg_inf: raised OverflowError: cannot convert float infinity to integer
+assemble_phase_16: raised AsmError: field out of range: op=5 a=0 b=0 imm=16
+sim_noise_nan_run: accepted result_type=NoneType
+sim_noise_inf_run: raised RecursionError: maximum recursion depth exceeded
+sample_shots_nan: raised TypeError: 'float' object cannot be interpreted as an integer

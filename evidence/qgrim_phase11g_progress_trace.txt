@@ -1,0 +1,141 @@
+=== CURRENT REFERENCES ===
+./QGRIM_ENGINE.py:930:def sample_circuit(
+./QGRIM_ENGINE.py:1607:                counts = sample_circuit(src, shots=n, noise_p=sim.noise_p)
+./QGRIM_ENGINE.py:1784:    counts = sample_circuit(src, shots=n, noise_p=noise_p)
+./QGRIM_ENGINE.py:1823:            counts = sample_circuit(src, shots=n, noise_p=noise_p)
+./QGRIM_ENGINE.py:1847:    counts_clean = sample_circuit(src, shots=n, noise_p=0.0)
+./QGRIM_ENGINE.py:1848:    counts_noisy = sample_circuit(src, shots=n, noise_p=p)
+./QGRIM_ENGINE.py:2148:        counts = sample_circuit(src, shots=n, noise_p=noise_p)
+./test_bell.py:57:        from QGRIM_ENGINE import sample_circuit
+./test_bell.py:58:        counts = sample_circuit(BELL_MEAS_SRC, shots=2000, seed=42)
+./test_ghz.py:59:        from QGRIM_ENGINE import sample_circuit
+./test_ghz.py:60:        counts = sample_circuit(BUILTIN_CIRCUITS["ghz"][1], shots=1000, seed=42)
+./test_grover.py:71:        from QGRIM_ENGINE import sample_circuit
+./test_grover.py:72:        counts = sample_circuit(BV_SRC, shots=100, seed=0)
+./test_noise.py:4:from QGRIM_ENGINE import QGRIMSim, sample_circuit, assemble, BUILTIN_CIRCUITS
+./test_noise.py:13:        counts_none  = sample_circuit(BELL_SRC, shots=500, seed=7, noise_p=0.0)
+./test_noise.py:14:        counts_zero  = sample_circuit(BELL_SRC, shots=500, seed=7, noise_p=0.0)
+./test_noise.py:19:        counts = sample_circuit(BELL_SRC, shots=1000, seed=42, noise_p=0.0)
+./test_noise.py:25:        counts = sample_circuit(BELL_SRC, shots=1000, seed=42, noise_p=0.3)
+./test_noise.py:39:            counts = sample_circuit(BELL_SRC, shots=1000, seed=0, noise_p=p)
+./test_noise.py:50:        counts_a = sample_circuit(BELL_SRC, shots=200, seed=1,  noise_p=0.1)
+./test_noise.py:51:        counts_b = sample_circuit(BELL_SRC, shots=200, seed=99, noise_p=0.1)
+./test_noise.py:56:        counts = sample_circuit(BELL_SRC, shots=1000, seed=42, noise_p=1.0)
+./test_noise.py:67:        counts_long  = sample_circuit(long_src,  shots=1000, seed=42, noise_p=0.02)
+./test_noise.py:68:        counts_short = sample_circuit(short_src, shots=1000, seed=42, noise_p=0.02)
+./test_sample.py:1:"""Tests for sample_circuit() and render_histogram()."""
+./test_sample.py:5:from QGRIM_ENGINE import QGRIMSim, sample_circuit, render_histogram, BUILTIN_CIRCUITS, assemble
+./test_sample.py:16:            counts = sample_circuit(BELL_SRC, shots=n, seed=42)
+./test_sample.py:21:        c1 = sample_circuit(BELL_SRC, shots=500, seed=7)
+./test_sample.py:22:        c2 = sample_circuit(BELL_SRC, shots=500, seed=7)
+./test_sample.py:27:        c1 = sample_circuit(BELL_SRC, shots=200, seed=1)
+./test_sample.py:28:        c2 = sample_circuit(BELL_SRC, shots=200, seed=99999)
+./test_sample.py:33:        counts = sample_circuit(BELL_SRC, shots=500, seed=42)
+./test_sample.py:39:        counts = sample_circuit(BELL_SRC, shots=2000, seed=0)
+./test_sample.py:48:        counts = sample_circuit(QRNG_SRC, shots=5000, seed=42)
+./test_sample.py:53:        counts = sample_circuit(QRNG_SRC, shots=10000, seed=42)
+./test_sample.py:61:        clean = sample_circuit(BELL_SRC, shots=500, seed=42, noise_p=0.0)
+./test_sample.py:62:        noisy = sample_circuit(BELL_SRC, shots=500, seed=42, noise_p=0.3)
+./test_sample.py:68:        counts = sample_circuit(BELL_SRC, shots=100, seed=42)
+./test_sample.py:74:        counts = sample_circuit(BELL_SRC, shots=100, seed=42)
+./test_sample.py:81:        counts = sample_circuit(BELL_SRC, shots=1, seed=0)
+./test_sample.py:85:    def test_progress_kwarg_accepted(self):
+./test_sample.py:86:        """sample_circuit accepts progress=False without error."""
+./test_sample.py:87:        counts = sample_circuit(BELL_SRC, shots=10, seed=0, progress=False)
+
+=== SAMPLER SIGNATURE AND BODY ===
+920-        lines.append(row)
+921-    lines.append(f"  {'─'*(len(cols)*(pad+1)+6)}")
+922-    lines.append(f"  Depth: {len(cols)} steps  |  Qubits: {QUBITS}")
+923-    return "\n".join(lines)
+924-
+925-
+926-# ═══════════════════════════════════════════════════════════════════════════════
+927-# SECTION 6: SHOT SAMPLER
+928-# ═══════════════════════════════════════════════════════════════════════════════
+929-
+930:def sample_circuit(
+931-    source: str,
+932-    shots: int = 1024,
+933-    seed: int = 0xACE1,
+934-    noise_p: float = 0.0,
+935-) -> Dict[str, int]:
+936-    """
+937-    Run the circuit `shots` times (independent fresh state each run).
+938-    Returns a dict: 4-bit bitstring → count.
+939-    """
+940-    program = assemble(source)
+941-    counts: Dict[str, int] = {}
+942-    rng = random.Random(seed)
+943-    for _ in range(shots):
+944-        sim = QGRIMSim(seed=rng.randint(0, 0xFFFFFFFF), noise_p=noise_p)
+945-        sim.run(program)
+946-        bits = "".join(str(sim.measurements.get(q, 0)) for q in range(QUBITS))
+947-        counts[bits] = counts.get(bits, 0) + 1
+948-    return counts
+949-
+950-
+951-def render_histogram(counts: Dict[str, int], shots: int, width: int = 36) -> str:
+952-    total = sum(counts.values())
+953-    lines = [f"\nHistogram ({shots} shots):", "─" * (width + 30)]
+954-    for key in sorted(counts):
+955-        n = counts[key]
+956-        bar_len = int(n / total * width)
+957-        bar = "█" * bar_len
+958-        pct = n / total * 100
+959-        w = WITNESS_LABELS[int(key, 2)] if len(key) == 4 else "?"
+960-        lines.append(f"  |{key}⟩ [{w}]  {bar:<{width}}  {n:5d}  ({pct:5.1f}%)")
+961-    lines.append("─" * (width + 30))
+962-    return "\n".join(lines)
+963-
+964-
+965-# ═══════════════════════════════════════════════════════════════════════════════
+966-# SECTION 7: CHSH BELL INEQUALITY TEST
+967-# ═══════════════════════════════════════════════════════════════════════════════
+968-
+969-def _ry_gate(sim: "QGRIMSim", q: int, theta: float):
+970-    """
+971-    Apply Ry(theta) to qubit q of sim (float-exact, not quantized).
+972-    Used internally for CHSH basis rotations — not part of the ISA.
+973-    Ry(θ) = [[cos(θ/2), -sin(θ/2)],
+974-              [sin(θ/2),  cos(θ/2)]]
+975-    """
+976-    c = math.cos(theta / 2)
+977-    s = math.sin(theta / 2)
+978-    mask = 1 << q
+979-    new = sim.state[:]
+980-    for i in range(STATES):
+981-        if i & mask:
+982-            continue
+983-        j = i | mask
+984-        a0, a1 = sim.state[i], sim.state[j]
+985-        new[i] =  c * a0 - s * a1
+986-        new[j] =  s * a0 + c * a1
+987-    sim.state = new
+988-
+989-
+990-def chsh_test(shots_per_setting: int = 500) -> str:
+991-    """
+992-    CHSH Bell inequality test using the Bell state |Φ+⟩.
+993-
+994-    Measures E(a,b) = P(same) - P(diff) with Ry basis rotations.
+995-    Settings for maximum violation with |Φ+⟩:
+996-      a=0,    a'=π/2
+997-      b=π/4,  b'=3π/4
+998-    Theory: E(a,b) = cos(a - b)  →  S = 2√2 ≈ 2.828
+999-
+1000-    Classical bound:  |S| ≤ 2
+
+=== HISTORY SEARCH: progress ===
+[33ma504f6c[m Create QGRIM_Engine _V2.2 ( Future )
+[33ma504f6c[m Create QGRIM_Engine _V2.2 ( Future )
+
+=== FILE HISTORY ===
+[33m72edc13[m recovery: validate entropy partitions
+[33m18926db[m recovery: control teleportation corrections
+[33mc8aaafd[m recovery: correct Bloch Y coordinate convention
+[33m6d41f78[m recovery: replace degenerate eigenvalue solver
+[33maf21a5c[m recovery: reduce entropy matrix dimension
+[33m73f29f3[m recovery: enforce four-qubit operand domain
+[33mbaca14c[m recovery: remove engine syntax barrier
+[33ma504f6c[m Create QGRIM_Engine _V2.2 ( Future )

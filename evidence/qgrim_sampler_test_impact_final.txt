@@ -1,0 +1,113 @@
+== file history ==
+a504f6c 2026-07-25 15:58:40 +0000 VAG-gomi Create QGRIM_Engine _V2.2 ( Future )
+== test/sample history by path ==
+321598b docs: synchronize direct-execution release surface
+df48f3a engineering: harden Tier-1 public API contracts
+05b10eb docs: synchronize engineering provenance
+3e88909 engineering: harden noise probability inputs
+be28bf0 engineering: reconstruct standard Grover iteration
+a57f8a7 engineering: reconstruct standard forward QFT
+72edc13 recovery: validate entropy partitions
+18926db recovery: control teleportation corrections
+c8aaafd recovery: correct Bloch Y coordinate convention
+6d41f78 recovery: replace degenerate eigenvalue solver
+af21a5c recovery: reduce entropy matrix dimension
+73f29f3 recovery: enforce four-qubit operand domain
+baca14c recovery: remove engine syntax barrier
+a504f6c Create QGRIM_Engine _V2.2 ( Future )
+== imports of test_sample ==
+./test_sample.py:12:class TestSampler:
+./test_sample.py:85:    def test_progress_kwarg_accepted(self):
+./.pytest_cache/v/cache/nodeids:32:  "test_api_contracts.py::test_sample_circuit_accepts_nonnegative_integer_shots[0]",
+./.pytest_cache/v/cache/nodeids:33:  "test_api_contracts.py::test_sample_circuit_accepts_nonnegative_integer_shots[1024]",
+./.pytest_cache/v/cache/nodeids:34:  "test_api_contracts.py::test_sample_circuit_accepts_nonnegative_integer_shots[10]",
+./.pytest_cache/v/cache/nodeids:35:  "test_api_contracts.py::test_sample_circuit_accepts_nonnegative_integer_shots[1]",
+./.pytest_cache/v/cache/nodeids:36:  "test_api_contracts.py::test_sample_circuit_rejects_negative_shots[-100]",
+./.pytest_cache/v/cache/nodeids:37:  "test_api_contracts.py::test_sample_circuit_rejects_negative_shots[-1]",
+./.pytest_cache/v/cache/nodeids:38:  "test_api_contracts.py::test_sample_circuit_rejects_non_integer_shots[1.5]",
+./.pytest_cache/v/cache/nodeids:39:  "test_api_contracts.py::test_sample_circuit_rejects_non_integer_shots[10]",
+./.pytest_cache/v/cache/nodeids:40:  "test_api_contracts.py::test_sample_circuit_rejects_non_integer_shots[False]",
+./.pytest_cache/v/cache/nodeids:41:  "test_api_contracts.py::test_sample_circuit_rejects_non_integer_shots[None]",
+./.pytest_cache/v/cache/nodeids:42:  "test_api_contracts.py::test_sample_circuit_rejects_non_integer_shots[True]",
+./.pytest_cache/v/cache/nodeids:43:  "test_api_contracts.py::test_sample_circuit_zero_shots_returns_empty_dict",
+./.pytest_cache/v/cache/nodeids:133:  "test_sample.py::TestSampler::test_bell_50_50_distribution",
+./.pytest_cache/v/cache/nodeids:134:  "test_sample.py::TestSampler::test_bell_only_00_and_11_outcomes",
+./.pytest_cache/v/cache/nodeids:135:  "test_sample.py::TestSampler::test_different_seeds_different_results",
+./.pytest_cache/v/cache/nodeids:136:  "test_sample.py::TestSampler::test_histogram_contains_outcomes",
+./.pytest_cache/v/cache/nodeids:137:  "test_sample.py::TestSampler::test_histogram_renders_without_crash",
+./.pytest_cache/v/cache/nodeids:138:  "test_sample.py::TestSampler::test_noise_changes_distribution",
+./.pytest_cache/v/cache/nodeids:139:  "test_sample.py::TestSampler::test_progress_kwarg_accepted",
+./.pytest_cache/v/cache/nodeids:140:  "test_sample.py::TestSampler::test_qrng_all_16_outcomes",
+./.pytest_cache/v/cache/nodeids:141:  "test_sample.py::TestSampler::test_qrng_uniformity_chi_square",
+./.pytest_cache/v/cache/nodeids:142:  "test_sample.py::TestSampler::test_seeded_reproducibility",
+./.pytest_cache/v/cache/nodeids:143:  "test_sample.py::TestSampler::test_shot_count_matches",
+./.pytest_cache/v/cache/nodeids:144:  "test_sample.py::TestSampler::test_single_shot",
+./.pytest_cache/v/cache/lastfailed:2:  "test_sample.py::TestSampler::test_progress_kwarg_accepted": true
+./test_api_contracts.py:13:def test_sample_circuit_accepts_nonnegative_integer_shots(shots):
+./test_api_contracts.py:19:def test_sample_circuit_zero_shots_returns_empty_dict():
+./test_api_contracts.py:24:def test_sample_circuit_rejects_non_integer_shots(shots):
+./test_api_contracts.py:30:def test_sample_circuit_rejects_negative_shots(shots):
+== runtime import graph references ==
+test_api_contracts.py:7:from QGRIM_ENGINE import QGRIMSim, BUILTIN_CIRCUITS, chsh_test, fidelity, sample_circuit
+test_api_contracts.py:13:def test_sample_circuit_accepts_nonnegative_integer_shots(shots):
+test_api_contracts.py:14:    counts = sample_circuit(BELL_SRC, shots=shots, seed=0)
+test_api_contracts.py:19:def test_sample_circuit_zero_shots_returns_empty_dict():
+test_api_contracts.py:20:    assert sample_circuit(BELL_SRC, shots=0) == {}
+test_api_contracts.py:24:def test_sample_circuit_rejects_non_integer_shots(shots):
+test_api_contracts.py:26:        sample_circuit(BELL_SRC, shots=shots)
+test_api_contracts.py:30:def test_sample_circuit_rejects_negative_shots(shots):
+test_api_contracts.py:32:        sample_circuit(BELL_SRC, shots=shots)
+test_bell.py:5:from QGRIM_ENGINE import QGRIMSim, assemble, BUILTIN_CIRCUITS
+test_bell.py:57:        from QGRIM_ENGINE import sample_circuit
+test_bell.py:58:        counts = sample_circuit(BELL_MEAS_SRC, shots=2000, seed=42)
+test_ccx.py:4:from QGRIM_ENGINE import QGRIMSim
+test_ccx.py:60:        from QGRIM_ENGINE import assemble
+test_ccx.py:66:        from QGRIM_ENGINE import AsmError, assemble
+test_cnot.py:4:from QGRIM_ENGINE import QGRIMSim, STATES
+test_cnot.py:74:        from QGRIM_ENGINE import AsmError, assemble
+test_cz.py:4:from QGRIM_ENGINE import QGRIMSim
+test_entropy.py:5:from QGRIM_ENGINE import QGRIMSim, assemble
+test_ghz.py:5:from QGRIM_ENGINE import QGRIMSim, assemble, BUILTIN_CIRCUITS
+test_ghz.py:59:        from QGRIM_ENGINE import sample_circuit
+test_ghz.py:60:        counts = sample_circuit(BUILTIN_CIRCUITS["ghz"][1], shots=1000, seed=42)
+test_grover.py:4:from QGRIM_ENGINE import QGRIMSim, assemble, BUILTIN_CIRCUITS
+test_grover.py:71:        from QGRIM_ENGINE import sample_circuit
+test_grover.py:72:        counts = sample_circuit(BV_SRC, shots=100, seed=0)
+test_measure.py:4:from QGRIM_ENGINE import QGRIMSim, assemble, STATES
+test_noise.py:4:from QGRIM_ENGINE import QGRIMSim, sample_circuit, assemble, BUILTIN_CIRCUITS
+test_noise.py:13:        counts_none  = sample_circuit(BELL_SRC, shots=500, seed=7, noise_p=0.0)
+test_noise.py:14:        counts_zero  = sample_circuit(BELL_SRC, shots=500, seed=7, noise_p=0.0)
+test_noise.py:19:        counts = sample_circuit(BELL_SRC, shots=1000, seed=42, noise_p=0.0)
+test_noise.py:25:        counts = sample_circuit(BELL_SRC, shots=1000, seed=42, noise_p=0.3)
+test_noise.py:39:            counts = sample_circuit(BELL_SRC, shots=1000, seed=0, noise_p=p)
+test_noise.py:50:        counts_a = sample_circuit(BELL_SRC, shots=200, seed=1,  noise_p=0.1)
+test_noise.py:51:        counts_b = sample_circuit(BELL_SRC, shots=200, seed=99, noise_p=0.1)
+test_noise.py:56:        counts = sample_circuit(BELL_SRC, shots=1000, seed=42, noise_p=1.0)
+test_noise.py:67:        counts_long  = sample_circuit(long_src,  shots=1000, seed=42, noise_p=0.02)
+test_noise.py:68:        counts_short = sample_circuit(short_src, shots=1000, seed=42, noise_p=0.02)
+test_sample.py:1:"""Tests for sample_circuit() and render_histogram()."""
+test_sample.py:5:from QGRIM_ENGINE import QGRIMSim, sample_circuit, render_histogram, BUILTIN_CIRCUITS, assemble
+test_sample.py:16:            counts = sample_circuit(BELL_SRC, shots=n, seed=42)
+test_sample.py:21:        c1 = sample_circuit(BELL_SRC, shots=500, seed=7)
+test_sample.py:22:        c2 = sample_circuit(BELL_SRC, shots=500, seed=7)
+test_sample.py:27:        c1 = sample_circuit(BELL_SRC, shots=200, seed=1)
+test_sample.py:28:        c2 = sample_circuit(BELL_SRC, shots=200, seed=99999)
+test_sample.py:33:        counts = sample_circuit(BELL_SRC, shots=500, seed=42)
+test_sample.py:39:        counts = sample_circuit(BELL_SRC, shots=2000, seed=0)
+test_sample.py:48:        counts = sample_circuit(QRNG_SRC, shots=5000, seed=42)
+test_sample.py:53:        counts = sample_circuit(QRNG_SRC, shots=10000, seed=42)
+test_sample.py:61:        clean = sample_circuit(BELL_SRC, shots=500, seed=42, noise_p=0.0)
+test_sample.py:62:        noisy = sample_circuit(BELL_SRC, shots=500, seed=42, noise_p=0.3)
+test_sample.py:68:        counts = sample_circuit(BELL_SRC, shots=100, seed=42)
+test_sample.py:74:        counts = sample_circuit(BELL_SRC, shots=100, seed=42)
+test_sample.py:81:        counts = sample_circuit(BELL_SRC, shots=1, seed=0)
+test_sample.py:86:        """sample_circuit accepts progress=False without error."""
+test_sample.py:87:        counts = sample_circuit(BELL_SRC, shots=10, seed=0, progress=False)
+test_swap.py:4:from QGRIM_ENGINE import QGRIMSim
+conftest.py:20:from QGRIM_ENGINE import QGRIMSim, assemble
+README.md:85:sample_circuit(..., progress=False)
+== suite with historical expectation deselected ==
+........................................................................ [ 48%]
+........................................................................ [ 96%]
+......                                                                   [100%]
+150 passed, 1 deselected in 2.08s

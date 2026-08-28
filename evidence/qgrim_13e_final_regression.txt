@@ -1,0 +1,72 @@
+=== BASELINE ===
+branch=qgrim-api-hardening
+head=df48f3a
+=== API TESTS ===
+..............................................                           [100%]
+46 passed in 0.06s
+=== INTEGRATION ===
+PASS api_progress_unresolved: progress=False remains unsupported
+SUMMARY
+passed=18 failed=0 total=18
+=== QFT ===
+qgrim_operator_unitarity_error 0.0017731189727783203
+qgrim_operator_process_fidelity 0.9986614071991402
+inverse_roundtrip_max_error 0.000796172715782312
+=== GROVER ===
+oracle_off_diagonal_max 0.0
+oracle_diag_minus_one_indices [5]
+oracle_vs_reference_max_error 0.0
+diffusion_vs_reference_max_error 5.551115123125783e-16
+target_probability 0.47265625
+norm 1.0
+expected_target_probability 0.47265625
+qgrim_oracle_vs_reference_max_error 0.0
+qgrim_diffusion_vs_reference_max_error 0.0
+=== NOISE ===
+NOISE one: accepted norm=0.999786376953125 active=False
+NOISE nan: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+NOISE pos_inf: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+NOISE neg_inf: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+SAMPLER_BOUNDARY
+NOISE_RECURSION_GUARD
+PUBLIC_PHASE_BOUNDARY_UNCHANGED
+INTERNAL_PHASE_BOUNDARY_UNCHANGED
+=== API BOUNDARY ===
+sim_noise_zero: accepted type=QGRIMSim repr=QGRIMSim(seed=44257, noise_p=0.0, state=[(1+0j), 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j], pc=0, halted=False, measurements={}, pi=0.0, trace=[], _rng=<random.Ra
+sim_noise_one: accepted type=QGRIMSim repr=QGRIMSim(seed=44257, noise_p=1.0, state=[(1+0j), 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j, 0j], pc=0, halted=False, measurements={}, pi=0.0, trace=[], _rng=<random.Ra
+sim_noise_bool: raised TypeError: noise_p must be a real number
+sim_noise_nan: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+sim_noise_inf: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+sim_noise_negative: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+sim_noise_above_one: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+sim_noise_string: raised TypeError: noise_p must be a real number
+sim_bloch_valid: accepted type=tuple repr=(0.999786376953125, -0.0, 0.0)
+sim_bloch_negative: raised ValueError: qubit index must be in range 0-3
+sim_bloch_four: raised ValueError: qubit index must be in range 0-3
+sim_fidelity_same: accepted type=float repr=0.9995727995410562
+sim_fidelity_short: raised ValueError: other_state must contain exactly 16 elements
+chsh_zero: raised ValueError: shots_per_setting must be >= 1
+chsh_negative: raised ValueError: shots_per_setting must be >= 1
+sample_default: accepted type=dict repr={'1000': 2, '0000': 2}
+sample_zero: accepted type=dict repr={}
+sample_negative: raised ValueError: shots must be non-negative
+sample_float_shots: raised TypeError: shots must be an integer
+sample_none_shots: raised TypeError: shots must be an integer
+sample_none_source: raised AttributeError: 'NoneType' object has no attribute 'splitlines'
+sample_noise_nan: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+sample_progress_false: raised TypeError: sample_circuit() got an unexpected keyword argument 'progress'
+=== OFFICIAL PYTEST ===
+test_sample.py:87: TypeError
+=========================== short test summary info ============================
+FAILED test_sample.py::TestSampler::test_progress_kwarg_accepted - TypeError:...
+1 failed, 150 passed in 2.05s
+=== REPOSITORY ===
+## [32mqgrim-api-hardening[m
+=== BRANCH POINTERS ===
+current=df48f3a
+api_decision=05b10eb
+docs=05b10eb
+engineering=3e88909
+recovery=72edc13
+main=a504f6c
+returns py=0 api=0 int=0 qft=0 grover=0 noise=0 boundary=0 official=1

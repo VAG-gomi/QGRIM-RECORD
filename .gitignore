@@ -1,0 +1,11 @@
+# Generated local caches and editor artifacts
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+.vscode/
+.idea/
+
+# Local scratch files; curated evidence belongs in evidence/
+*.tmp
+*.swp

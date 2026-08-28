@@ -1,0 +1,22 @@
+QFT_ENGINEERING_CONTRACT
+description Quantum Fourier Transform on 3 qubits (forward, q0 is LSB)
+assembled_words 21
+q0_is_lsb True
+forward_sign +
+exact_reference_unitarity 1.0257193740502483e-15
+qgrim_operator_unitarity_error 0.0017731189727783203
+qgrim_vs_forward_max_error 0.0003452669830012243
+qgrim_vs_forward_frobenius_error 0.0021150045347993703
+qgrim_operator_process_fidelity 0.9986614071991402
+basis_0_max_column_error 0.00028190621827373086
+basis_1_max_column_error 0.00034526698300122425
+basis_2_max_column_error 0.00028190621827373086
+basis_3_max_column_error 0.0003452669830012243
+basis_4_max_column_error 0.00028190621827373086
+basis_5_max_column_error 0.0003452669830012047
+basis_6_max_column_error 0.00028190621827373086
+basis_7_max_column_error 0.0003452669830012243
+inverse_roundtrip_max_error 0.000796172715782312
+forward_output_norm_error -0.0006083610445459797
+roundtrip_state_norm_error -0.0009199440034346473
+inverse_source_word_count 21

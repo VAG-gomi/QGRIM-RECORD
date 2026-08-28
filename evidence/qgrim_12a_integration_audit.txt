@@ -1,0 +1,20 @@
+PASS core_h_norm: norm=0.999786376953125
+PASS core_h_state: amps=(0.70703125+0j), (0.70703125+0j)
+PASS core_cnot_truth: nonzero=[(3, (1+0j))]
+PASS entropy_bell_single: S=1.000094537
+PASS entropy_bell_internal_cut: S=0.000308160
+PASS entropy_partition_validation: duplicate/negative/out-of-range rejected
+PASS bloch_zero: xyz=(0.0, -0.0, 1.0)
+PASS bloch_plus: xyz=(0.999786376953125, -0.0, 0.0)
+PASS bloch_plusi: xyz=(0.0, 0.999786376953125, 0.0)
+PASS teleportation_all_branches: branches=[(0, 0), (0, 1), (1, 0), (1, 1)]
+PASS qft_runs_and_norm: norm=0.999096155
+PASS grover_target_amplification: P5=0.472656250, max=0.472656250
+PASS grover_norm: norm=1.000000000000000
+PASS measurement_deterministic: measurement=1, state1=(1+0j)
+PASS sampling_reproducible: counts={'1100': 265, '0000': 235}
+PASS noise_changes_distribution: clean={'1100': 279, '0000': 221}, noisy_outcomes=4
+PASS api_assemble_invalid_qubit: H 4 rejected
+PASS api_progress_unresolved: progress=False remains unsupported
+SUMMARY
+passed=18 failed=0 total=18

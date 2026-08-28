@@ -1,0 +1,89 @@
+=== STATIC ARTIFACT AUDIT ===
+QGRIM_13G_C_RELEASE_ARTIFACT_AUDIT
+PASS baseline: qgrim-packaging 321598b
+PASS working_tree_clean
+PASS required_exists:QGRIM_ENGINE.py
+PASS required_manifested:QGRIM_ENGINE.py
+PASS required_exists:README.md
+PASS required_manifested:README.md
+PASS required_exists:PROVENANCE.md
+PASS required_manifested:PROVENANCE.md
+PASS required_exists:LICENSE
+PASS required_manifested:LICENSE
+PASS required_exists:conftest.py
+PASS required_manifested:conftest.py
+PASS required_exists:test_y_py
+PASS required_manifested:test_y_py
+PASS required_exists:RELEASE_SURFACE.md
+PASS required_manifested:RELEASE_SURFACE.md
+PASS excluded_not_primary:main.py
+PASS excluded_not_primary:screen_shot.py
+PASS excluded_not_primary:QGRIM_Engine _V2.2 ( Future ) 
+PASS excluded_not_primary:replit_readme.md
+PASS excluded_not_primary:pyproject_toml.
+PASS excluded_not_primary:uv.lock
+PASS excluded_not_primary:.npmrc
+PASS stdlib_only_runtime_imports: []
+PASS module_import: /home/ubuntu/QGRIM_-ENGINE-.PY/QGRIM_ENGINE.py
+PASS registry_count_19: 19
+PASS help_exit
+PASS help_reconstructed_label
+PASS help_count_19
+PASS list_exit_and_count
+PASS isa_exit_and_extensions
+PASS direct_run_exit
+PASS readme_manifest_link
+PASS readme_test_y_py_disclosure
+PASS manifest_test_y_py_disclosure
+PASS provenance_auxiliary_map
+PASS provenance_stage_map
+PASS sampler_ambiguity_documented
+PASS isa_extensions_documented
+SUMMARY all_static_and_runtime_checks=PASS
+=== API TESTS ===
+..............................................                           [100%]
+46 passed in 0.06s
+=== INTEGRATION ===
+PASS api_progress_unresolved: progress=False remains unsupported
+SUMMARY
+passed=18 failed=0 total=18
+=== QFT ===
+qgrim_operator_unitarity_error 0.0017731189727783203
+qgrim_operator_process_fidelity 0.9986614071991402
+inverse_roundtrip_max_error 0.000796172715782312
+=== GROVER ===
+oracle_off_diagonal_max 0.0
+oracle_diag_minus_one_indices [5]
+oracle_vs_reference_max_error 0.0
+diffusion_vs_reference_max_error 5.551115123125783e-16
+target_probability 0.47265625
+norm 1.0
+expected_target_probability 0.47265625
+qgrim_oracle_vs_reference_max_error 0.0
+qgrim_diffusion_vs_reference_max_error 0.0
+=== NOISE ===
+NOISE one: accepted norm=0.999786376953125 active=False
+NOISE nan: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+NOISE pos_inf: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+NOISE neg_inf: raised ValueError: noise_p must be finite and within [0.0, 1.0]
+NOISE_RECURSION_GUARD
+PUBLIC_PHASE_BOUNDARY_UNCHANGED
+INTERNAL_PHASE_BOUNDARY_UNCHANGED
+=== OFFICIAL PYTEST ===
+test_sample.py:87: TypeError
+=========================== short test summary info ============================
+FAILED test_sample.py::TestSampler::test_progress_kwarg_accepted - TypeError:...
+1 failed, 150 passed in 2.03s
+=== PROVENANCE ===
+branch=qgrim-packaging
+head=321598b
+## [32mqgrim-packaging[m
+main                                a504f6c
+qgrim-recovery                      72edc13
+qgrim-engineering-qft-grover        3e88909
+qgrim-docs-sync                     05b10eb
+qgrim-api-decision                  05b10eb
+qgrim-api-hardening                 df48f3a
+qgrim-packaging                     321598b
+=== DIFF ===
+returns api=0 int=0 qft=0 grover=0 noise=0 official=1

@@ -1,0 +1,31 @@
+VALID_PARTITION_ORACLE_COMPARISON
+[] actual=0.000000000000000 expected=-0.000000000000000 err=1.602e-16
+[0] actual=0.767553313829286 expected=0.767553313829286 err=1.110e-16
+[1] actual=0.782418334759397 expected=0.782418334759397 err=2.220e-16
+[2] actual=0.770991635453675 expected=0.770991635453675 err=1.110e-16
+[3] actual=0.804086720105761 expected=0.804086720105761 err=1.110e-16
+[0, 1] actual=1.217830531629361 expected=1.217830531629363 err=1.776e-15
+[0, 2] actual=1.059051973980834 expected=1.059051973980834 err=4.441e-16
+[0, 3] actual=1.178092634223467 expected=1.178092634223466 err=2.220e-16
+[1, 2] actual=1.178092634223467 expected=1.178092634223467 err=4.441e-16
+[1, 3] actual=1.059051973980834 expected=1.059051973980834 err=2.220e-16
+[2, 3] actual=1.217830531629361 expected=1.217830531629361 err=0.000e+00
+[0, 1, 2] actual=0.804086720105761 expected=0.804086720105761 err=1.110e-16
+[0, 1, 3] actual=0.770991635453675 expected=0.770991635453675 err=1.110e-16
+[0, 2, 3] actual=0.782418334759397 expected=0.782418334759397 err=2.220e-16
+[1, 2, 3] actual=0.767553313829286 expected=0.767553313829286 err=1.110e-16
+[0, 1, 2, 3] actual=0.000000000000000 expected=-0.000000000000000 err=1.602e-16
+MAX_ORACLE_ERROR=1.776e-15
+COMPLEMENTARY_PARTITION_CHECKS
+[0] vs [1, 2, 3]: difference=0.000e+00
+[0, 2] vs [1, 3]: difference=0.000e+00
+[0, 1, 3] vs [2]: difference=0.000e+00
+[] vs [0, 1, 2, 3]: difference=0.000e+00
+INVALID_INPUT_CHECKS
+duplicate: ValueError: partition_a must not contain duplicate qubits
+negative: ValueError: partition_a qubits must be in range 0-3
+positive_out_of_range: ValueError: partition_a qubits must be in range 0-3
+mixed_out_of_range: ValueError: partition_a qubits must be in range 0-3
+float: TypeError: partition_a must contain only integer qubit indices
+bool: TypeError: partition_a must contain only integer qubit indices
+not_iterable: TypeError: partition_a must be an iterable of integer qubit indices

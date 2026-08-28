@@ -1,0 +1,50 @@
+GROVER_ENGINEERING_CONTRACT
+description Grover search for |0101⟩ (engineering reconstruction, q0 is LSB)
+assembled_words 28
+    0  0x6000  INIT     
+    1  0x1000  H        q0
+    2  0x1100  H        q1
+    3  0x1200  H        q2
+    4  0x1300  H        q3
+    5  0x2100  X        q1
+    6  0x2300  X        q3
+    7  0x0F03  MARK     |1111⟩  [SW]
+    8  0x2100  X        q1
+    9  0x2300  X        q3
+   10  0x1000  H        q0
+   11  0x1100  H        q1
+   12  0x1200  H        q2
+   13  0x1300  H        q3
+   14  0x2000  X        q0
+   15  0x2100  X        q1
+   16  0x2200  X        q2
+   17  0x2300  X        q3
+   18  0x0F04  REFLECT  |1111⟩  [SW]
+   19  0x2000  X        q0
+   20  0x2100  X        q1
+   21  0x2200  X        q2
+   22  0x2300  X        q3
+   23  0x1000  H        q0
+   24  0x1100  H        q1
+   25  0x1200  H        q2
+   26  0x1300  H        q3
+   27  0xF000  HALT     
+oracle_length 5
+diffusion_length 17
+oracle_off_diagonal_max 0.0
+oracle_diag_minus_one_indices [5]
+oracle_diag_plus_one_count 15
+oracle_vs_reference_max_error 0.0
+diffusion_vs_reference_max_error 5.551115123125783e-16
+oracle_unitarity_error 0.0
+diffusion_unitarity_error 1.2212453270876722e-15
+full_exact_vs_reference_max_error 4.440892098500626e-16
+target_probability 0.47265625
+max_probability 0.47265625
+max_probability_indices [5]
+norm 1.0
+expected_target_probability 0.47265625
+qgrim_oracle_vs_reference_max_error 0.0
+qgrim_diffusion_vs_reference_max_error 0.0
+qgrim_oracle_unitarity_error 0.0
+qgrim_diffusion_unitarity_error 0.0

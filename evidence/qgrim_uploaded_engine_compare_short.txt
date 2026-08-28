@@ -1,0 +1,49 @@
+=== HASHES ===
+b9a8b3cafea901b06cf6ba15a41b9534873e02163716096f08c68f83548bce07  /home/ubuntu/upload/QGRIM_ENGINE.py
+187a5ba5704071d1bbe25c4793669e6cdab762cbeccbbedd5901c5696b46e95a  /tmp/QGRIM_ENGINE_a504f6c.py
+0c7d2ad5c213e54c54253346b59d0081e86b3668f5cc9d59958229f4bfeba98e  QGRIM_ENGINE.py
+=== BYTE COMPARISON UPLOADED VS BASELINE ===
+DIFFERENT
+--- /tmp/QGRIM_ENGINE_a504f6c.py	2026-08-27 23:24:10.712286303 +0000
++++ /home/ubuntu/upload/QGRIM_ENGINE.py	2026-08-27 23:15:16.224493594 +0000
+@@ -1,8 +1,3 @@
+-===================================================
+-
+-44% credit goes to replit agent.For writing codes!
+-
+-====================================================
+ #!/usr/bin/env python3
+ """
+ QGRIM v2.1 — Unified Quantum Circuit Engine  [Complete Edition]
+@@ -2133,4 +2128,3 @@
+ 
+ if __name__ == "__main__":
+     cli()
+-=====================================
+\ No newline at end of file
+=== UPLOADED ENGINE SYMBOLS ===
+25:  • Witness / ODEA decoder (S/O/F/X/H labels)
+66:# Witness / ODEA label table: maps 4-bit basis index to label
+67:WITNESS_LABELS = ["H","S","S","O","S","F","O","X","S","O","F","X","O","X","X","H"]
+68:WITNESS_MEANING = {
+666:                w_lbl = WITNESS_LABELS[i]
+687:            w = WITNESS_LABELS[i]
+843:def sample_circuit(
+872:        w = WITNESS_LABELS[int(key, 2)] if len(key) == 4 else "?"
+1775:    print("\n──── WITNESS / ODEA DECODER ────")
+1780:        lbl = WITNESS_LABELS[i]
+1781:        meaning = WITNESS_MEANING[lbl]
+1973:        ("Witness / ODEA decoder table",           lambda: menu_witness()),
+=== UPLOADED SIMULATOR SYMBOLS ===
+27:def quantize(x: float) -> float:
+35:class QGRIMSim:
+200:def main():
+=== OTHER FILE TYPES ===
+/home/ubuntu/upload/2026.findings-acl.1126.pdf:              PDF document, version 1.7
+/home/ubuntu/upload/qgrim_top.v:                             Unicode text, UTF-8 text
+/home/ubuntu/upload/qgrim_sim.py:                            Python script, Unicode text, UTF-8 text executable
+/home/ubuntu/upload/gpu.gds:                                 GDSII Stream file version 3.0
+/home/ubuntu/upload/gpu(1).gds:                              GDSII Stream file version 3.0
+/home/ubuntu/upload/gpu(2).gds:                              GDSII Stream file version 3.0
+/home/ubuntu/upload/src.zip:                                 Zip archive data, at least v2.0 to extract, compression method=store
+/home/ubuntu/upload/QGRIMEngine—Developer'sDescription.docx: Microsoft Word 2007+
